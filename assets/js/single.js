@@ -34,7 +34,7 @@ const getRepoIssues = function(repo){
             })
         }
         else{
-            alert("An issue occured");
+            document.location.replace("./index.html");
         }
     })
     .catch((e) => {
