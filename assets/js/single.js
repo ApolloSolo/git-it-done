@@ -1,8 +1,25 @@
 const issueContainerEl = document.querySelector("#issues-container");
 const limitWarningEl = document.querySelector("#limit-warning");
+const repoNameEl = document.querySelector("#repo-name");
 
+const getRepoName = function() {
+    // grab repo name from url query string
+    const queryString = document.location.search;
+    const repoName = queryString.split("=")[1];
+    if(repoName){
+        // display repo name on the page
+        getRepoIssues(repoName);
+        repoName.textContent = repoName;  
+    }
+    else{
+        // if no repo was given, redirect to the homepage
+        document.location.replace("./index.html");
+    }
+}
+
+//fetch data
 const getRepoIssues = function(repo){
-    const apiUrl = "https://api.github.com/repos/facebook/react/issues?direction=asc";
+    const apiUrl = "https://api.github.com/repos/"+ repo +"/issues?direction=asc";
     fetch(apiUrl)
     .then((res) => {
         if(res.ok){
@@ -76,4 +93,4 @@ const displayWarning = function(repo) {
     limitWarningEl.appendChild(linkEl);
   };
 
-getRepoIssues("ApolloSolo/frac-tank-db");
+  getRepoName();
